@@ -1,0 +1,2 @@
+# CClans
+Clans for cuberite
