@@ -111,7 +111,7 @@ function destructClan(User)
   local user = getUser(User);
   local clan = getClan(nil, user.clanID);
   if user.role == 'owner' then
-      clanBroadcast(clan, 'Clan destructed. Now, yor\'re clanless.');
+      clanBroadcast(clan, 'Clan destructed. Now, you\'re clanless.');
       removeClanDB(clan);
       User:SendMessageSuccess('Successfully destructed.')
   else
@@ -127,7 +127,7 @@ function leaveFromClan(User)
   end
 
   if not isUserInClan(User) then
-    User:SendMessageFailure('You are not in clan now.');
+    User:SendMessageFailure('You\'re not in clan now.');
     return true;
   end
 
@@ -408,7 +408,7 @@ function excludeFromClan(User, Slayer)
   end
 
   if not isUserInClan(User) then
-    User:SendMessageFailure('You are not in clan now.');
+    User:SendMessageFailure('You\'re not in clan now.');
     return true;
   end
 
@@ -451,13 +451,13 @@ function clanInfo(User)
   if isUserInClan(User) then
     msg = msg .. getClan(nil, getUser(User).clanID).name .. '\n';
   else
-    msg = msg .. 'clanless\n';
+    msg = msg .. '<clanless>\n';
   end
 
   if isUserInClan(User) then
     local clan = getClan(nil, getUser(User).clanID);
     msg = msg .. 'Total clanmates: ' .. tostring(#getClanUsers(clan)) .. '\n';
-    msg = msg .. 'Rating: <NON IMPLEMENTED YET>\n'; -- TODO: RATING
+    msg = msg .. 'Rating: ' .. tostring(getClanRating(clan)) .. '/' .. tostring(#getClans()) .. '\n'; 
     for i, user in ipairs(getClanUsers(clan)) do
       if user.role == 'owner' then
         cRoot:Get():DoWithPlayerByUUID(user.memberUUID,
@@ -502,7 +502,7 @@ function addClan(Name, User)
     end
 
     if isUserInClan(User) then
-      User:SendMessageFailure('You are already in clan.\nLeave first.');
+      User:SendMessageFailure('You\'re already in clan.\nLeave first.');
       return true;
     end
 
@@ -533,9 +533,9 @@ function helpClan(User, Page)
     msg = msg .. '/clan delbase - Delete clan base\n';
   elseif Page == "3" then
     msg = msg .. '\n/clan wish - Send wish about joining to the clan\n';
-    msg = msg .. '\n/clan willing - Accept the wish from player\n';
-    msg = msg .. '\n/clan willing clear - Clear all wishes\n';
-    msg = msg .. '\n/clan help - Show clan help page\n';
+    msg = msg .. '/clan willing - Accept the wish from player\n';
+    msg = msg .. '/clan willing clear - Clear all wishes\n';
+    msg = msg .. '/clan help - Show clan help page\n';
   else
     User:SendMessageFailure('Invalid page. There\'re ' .. tostring(totalPages) .. ' pages in help.')
     return true;
@@ -553,7 +553,7 @@ function addClanBase(User)
   end
 
   if not isUserInClan(User) then
-    User:SendMessageFailure('You are not in clan now.');
+    User:SendMessageFailure('You\'are not in clan now.');
     return true;
   end
 
@@ -580,7 +580,7 @@ function removeClanBase(User)
   end
 
   if not isUserInClan(User) then
-    User:SendMessageFailure('You are not in clan now.');
+    User:SendMessageFailure('You\'re not in clan now.');
     return true;
   end
 
@@ -606,7 +606,7 @@ function tpClanBase(User)
   end
 
   if not isUserInClan(User) then
-    User:SendMessageFailure('You are not in clan now.');
+    User:SendMessageFailure('You\'re not in clan now.');
     return true;
   end
 
@@ -621,6 +621,6 @@ function tpClanBase(User)
   -- User:SetPosY(0);
   -- User:SetPosZ(0); idk why
   User:TeleportToCoords(base.baseX, base.baseY, base.baseZ);
-  User:SendMessageSuccess('Now you are in the clan base.');
+  User:SendMessageSuccess('Now you\'re in the clan base.');
   return true;
 end

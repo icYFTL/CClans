@@ -42,6 +42,20 @@ function getClanUsers(Clan)
     return res;
 end
 
+function getClanRating(Clan)
+  res = {}
+  for row in DB:nrows('select c.name from members m join clans c on c.id = m.clanID group by c.name order by count(m.memberUUID) desc;') do table.insert(res, row); end -- Idk. Just change it on ur own if u want
+  local rating = 0;
+  for key, value in pairs(res) do
+    if (value ~= Clan.name) then
+      rating = rating + 1;
+    else
+      break;
+    end
+  end
+    return rating;
+end
+
 function getClans()
   res = {}
   for row in DB:nrows(string.format('SELECT * FROM clans;')) do table.insert(res, row); end

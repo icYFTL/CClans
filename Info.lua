@@ -1,8 +1,8 @@
 g_PluginInfo =
 {
 	Name = "CClans",
-	Version = "1",
-	Date = "2020-11-19",
+	Version = "1.1",
+	Date = "2022-02-06",
 	Description = [[Implements clans on the server]],
 	Commands =
 	{
